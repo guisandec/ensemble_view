@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from functools import partial
+from load_ensemble_data import load_ensemble_data
 
 window = Tk()
 window.title("Visualizador de ensembles")
@@ -15,12 +16,16 @@ tab_selector = ttk.Frame(tab_parent)
 tab_parent.add(tab_selector,text="Select protein")
 tab_parent.pack(expand=1,fill="both")
 
+# Load load_ensemble_data
+
+ensemble_data = load_ensemble_data()
 
 # Carga un dicionario con laa info para el listbox.
 protein_dict = dict()
-protein_dict[0] = ["P00001","DKRGTRHTRHTRH$KCFKKKDJEJCW------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"]
-protein_dict[1] = ["P00A11","ASASASASADEDASASASASADEV$KCFKKKDJEJCW"]
-protein_dict[2] = ["P20S01","aaasasSSSSSSSSSSSCW"]
+for index,uniprot_id in enumerate(ensemble_data.keys()):
+    protein_dict[index] = [uniprot_id,ensemble_data[uniprot_id]["Sequence"]]
+
+
 #crea una lista
 protein_listbox = Listbox(tab_selector)
 for i in protein_dict:
