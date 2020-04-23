@@ -22,16 +22,35 @@ ensemble_data = load_ensemble_data()
 
 # Carga un dicionario con laa info para el listbox.
 protein_dict = dict()
+protein_listbox = Listbox(tab_selector)
 for index,uniprot_id in enumerate(ensemble_data.keys()):
     protein_dict[index] = [uniprot_id,ensemble_data[uniprot_id]["Sequence"]]
+    protein_listbox.insert(index,uniprot_id)
+
+protein_sumary_label = Label(tab_selector,text="Click to show info",bg="#aaffaa")
+
+def onselect(evt):
+    # Note here that Tkinter passes an event object to onselect()
+    a = protein_listbox.curselection()
+    uniprot_id = protein_dict[a[0]][0]
+    message = ""
+    for labels in ensemble_data[uniprot_id].keys():
+
+        #message += labels + ": " + ensemble_data[uniprot_id][labels] +"\n"
+        message += labels + ": " + " N/A " +"\n"
+
+    protein_sumary_label.configure(text=message)
 
 
+
+
+
+protein_listbox.bind('<<ListboxSelect>>', onselect)
 #crea una lista
-protein_listbox = Listbox(tab_selector)
-for i in protein_dict:
-    protein_listbox.insert(i,protein_dict[i][0])
 
 protein_listbox.place(x=10,y=10)
+
+protein_sumary_label.place(x=250,y=40)
 
 container_dict = dict()
 canvas_dict = dict()
