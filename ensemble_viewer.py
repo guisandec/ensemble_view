@@ -2,12 +2,17 @@ from tkinter import *
 from tkinter import ttk
 from functools import partial
 from load_ensemble_data import load_ensemble_data
-
+from pprint import pprint as pp
 window = Tk()
 window.title("Visualizador de ensembles")
 window.geometry("800x600")
 #window.resizable(False,False)
 
+verbose = True
+
+def d_print(string):
+    if verbose == True:
+        print (string)
 
 tab_parent = ttk.Notebook(window)
 tabs_abiertas= []
@@ -34,6 +39,7 @@ def onselect(evt):
     a = protein_listbox.curselection()
     uniprot_id = protein_dict[a[0]][0]
     message = ""
+    pp(ensemble_data[uniprot_id])
     for labels in ensemble_data[uniprot_id].keys():
 
         #message += labels + ": " + ensemble_data[uniprot_id][labels] +"\n"
@@ -74,10 +80,12 @@ def click_aa(uniprot_id,index,protein_seq):
 
 def create_protein_tab(uniprot_id,protein_seq):
     if not uniprot_id in tabs_abiertas:
+        print ("1")
         tabs_dict[uniprot_id] = ttk.Frame(tab_parent)
         tab_parent.add(tabs_dict[uniprot_id],text=uniprot_id)
         tabs_abiertas.append(uniprot_id)
 
+        print ("2")
         container_dict[uniprot_id] = ttk.Frame(tabs_dict[uniprot_id],height=50)
         canvas_dict[uniprot_id] = Canvas(container_dict[uniprot_id],bg="#aaaaff",height=50,width=780)
         scrollbar_dict[uniprot_id] = ttk.Scrollbar(container_dict[uniprot_id], orient="horizontal", command=canvas_dict[uniprot_id].xview)
@@ -91,24 +99,26 @@ def create_protein_tab(uniprot_id,protein_seq):
         )
 
         canvas_dict[uniprot_id].create_window((0, 0), window=scrollable_frame_dict[uniprot_id], anchor="nw")
-
+        print ("3")
         canvas_dict[uniprot_id].configure(xscrollcommand=scrollbar_dict[uniprot_id].set)
         container_dict[uniprot_id].place(x=10,y=10)
         scrollbar_dict[uniprot_id].pack(side="bottom", fill="x")
         canvas_dict[uniprot_id].pack(side="left", fill="y", expand=True)
 
 
-
+        print ("4")
         buton_dict[uniprot_id] = dict()
         res_labels_dict[uniprot_id] = dict()
         for i,aa in enumerate(protein_seq):
-            buton_dict[uniprot_id][str(i)] = Button(scrollable_frame_dict[uniprot_id],activebackground="#ffffaa",background ="#ffaaaa",text=aa,width=1,height=1,padx=4,pady=0,command= partial(click_aa,uniprot_id,i,protein_seq))
+            print (">"+str(i))
+            buton_dict[uniprot_id][str(i)] = Button(scrollable_frame_dict[uniprot_id],activebackground="#ffffaa",background ="#ffaaaa",text=aa,font=("Liberation Mono",8),width=1,height=1,padx=4,pady=0,command= partial(click_aa,uniprot_id,i,protein_seq))
             buton_dict[uniprot_id][str(i)].grid(row=0,column=i)
-            res_labels_dict[uniprot_id][str(i)] = Label(scrollable_frame_dict[uniprot_id],text=str(i))
+            res_labels_dict[uniprot_id][str(i)] = Label(scrollable_frame_dict[uniprot_id],text=str(i),font=("Liberation Mono",8))
             res_labels_dict[uniprot_id][str(i)].grid(row=1,column=i)
         	#buton_dict[str(i)].place(x=5+20*i,y=4)
         residue_info_dict[uniprot_id] = Label(tabs_dict[uniprot_id],text="Click to show info",bg="#aaffaa")
         residue_info_dict[uniprot_id].place(x=400,y=150)
+        d_print("5/END")
 
 
 def seleccionar():
@@ -116,8 +126,9 @@ def seleccionar():
     print (a,protein_dict[a[0]])
     uniprot_id = protein_dict[a[0]][0]
     protein_seq= protein_dict[a[0]][1]
-
+    d_print ("Creando TAB")
     create_protein_tab(uniprot_id,protein_seq)
+    d_print ("Tab creada")
 
 select_button = Button(tab_selector,text="Select",command=seleccionar)
 select_button.place(x=500,y=100,)
