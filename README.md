@@ -1,5 +1,5 @@
 # ensemble_viewer
-Herramienta para visualizar ensembles de proteinas en suando tkinter 
+Herramienta para visualizar ensembles de proteinas usando tkinter 
 
 
 El programa anterior fue escrito en python3 y usa la libreria tkinter.
