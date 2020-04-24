@@ -101,9 +101,6 @@ def create_protein_tab(uniprot_id,protein_seq):
         canvas_dict[uniprot_id].create_window((0, 0), window=scrollable_frame_dict[uniprot_id], anchor="nw")
         print ("3")
         canvas_dict[uniprot_id].configure(xscrollcommand=scrollbar_dict[uniprot_id].set)
-        container_dict[uniprot_id].place(x=10,y=10)
-        scrollbar_dict[uniprot_id].pack(side="bottom", fill="x")
-        canvas_dict[uniprot_id].pack(side="left", fill="y", expand=True)
 
 
         print ("4")
@@ -118,6 +115,10 @@ def create_protein_tab(uniprot_id,protein_seq):
         	#buton_dict[str(i)].place(x=5+20*i,y=4)
         residue_info_dict[uniprot_id] = Label(tabs_dict[uniprot_id],text="Click to show info",bg="#aaffaa")
         residue_info_dict[uniprot_id].place(x=400,y=150)
+        container_dict[uniprot_id].place(x=10,y=10)
+        scrollbar_dict[uniprot_id].pack(side="bottom", fill="x")
+        canvas_dict[uniprot_id].pack(side="left", fill="y", expand=True)
+
         d_print("5/END")
 
 
