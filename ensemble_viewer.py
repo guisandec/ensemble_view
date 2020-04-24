@@ -14,6 +14,8 @@ def d_print(string):
     if verbose == True:
         print (string)
 
+def evt_stru_select(evt):
+    print (evt)
 
 
 def create_new_protein_tab(tab_parent,uniprot_id):
@@ -22,10 +24,11 @@ def create_new_protein_tab(tab_parent,uniprot_id):
     tabs_abiertas.append(uniprot_id)
     secuencia = ensemble_data[uniprot_id]["Sequence"]
     create_scrolable_aa_list(tabs_dict[uniprot_id],secuencia,xx=10,yy=10,alto=50,ancho=780)
-    homologos = literal_eval(ensemble_data[uniprot_id]["PDB_CHAIN_LIST"])
-    print (homologos)
-    print (type(homologos))
-    create_listbox(tabs_dict[uniprot_id],homologos,xx=20,yy=300,alto=400,ancho=100)
+    structure_list= literal_eval(ensemble_data[uniprot_id]["PDB_CHAIN_LIST"])
+
+    container,scrollbar,listbox,listbox_dict = create_listbox(tabs_dict[uniprot_id],structure_list,xx=20,yy=300,alto=400,ancho=100)
+    listbox.bind('<<ListboxSelect>>',evt_stru_select)
+    return listbox
 
 
 # create standar windown
@@ -57,9 +60,19 @@ container1,scrollbar1,listbox1,listbox_dict1 = create_listbox(tab_selector,prote
 def event_protein_select(evt):
     selected_index = evt.widget.curselection()[0]
     uniprot_id = listbox_dict1[selected_index]
-    if not uniprot_id in tabs_dict:
-        create_new_protein_tab(tab_parent,uniprot_id)
+    pp(ensemble_data[uniprot_id])
+
 listbox1.bind('<<ListboxSelect>>',event_protein_select)
+
+def click_select_btn():
+    selected_index = listbox1.curselection()[0]
+    if not is_none(selected_index):
+        uniprot_id = listbox_dict1[selected_index]
+        if not uniprot_id in tabs_dict:
+            create_new_protein_tab(tab_parent,uniprot_id)
+
+button_select =  Button(tab_selector,text="Seleccionar",command=click_select_btn)
+button_select.place (x=100,y=200)
 
 
 

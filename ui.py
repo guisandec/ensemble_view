@@ -59,12 +59,11 @@ def create_scrolable_aa_list(root,lista=[],xx=10,yy=10,ancho=5800,alto=200):
         print ("clicked aa",index)
         pass
 
-
     for index,items in enumerate(lista):
-        x = Button(scrollable_frame, text=items,padx=5,pady=3,font=('Liberatarion Mono',9),command=partial(click_aa,index))
+        x = Button(scrollable_frame,text=items,padx=5,pady=3,font=('Liberatarion Mono',9),command=partial(click_aa,index))
         x.pack(side="left")
 
-
+    #fija el cotainer en las cordenadas xx yy
     container.place(x=xx,y=yy)
     canvas.pack(side="top", fill="both", expand=True)
     scrollbar.pack(side="bottom", fill="x" )
@@ -81,7 +80,7 @@ def onselect(evt):
 
 def create_listbox(root,list = ["Example 1","Example2"],xx=0,yy=0,ancho=200,alto=300):
     container = ttk.Frame(root)
-    sample_listbox = Listbox(container)
+    sample_listbox = Listbox(container,exportselection=0)
     listbox_dict = dict()
     for index,element in enumerate(list):
         #protein_dict[index] = [uniprot_id,ensemble_data[uniprot_id]["Sequence"]]
