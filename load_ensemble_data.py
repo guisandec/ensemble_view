@@ -10,4 +10,4 @@ def load_ensemble_data():
                 ensemble_data[uniprot_id] = dict()
                 for j,label in enumerate(labels):
                     ensemble_data[uniprot_id][label] = row[j]
-    return ensemble_data
+    return ensemble_data,labels

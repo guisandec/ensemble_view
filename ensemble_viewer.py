@@ -31,6 +31,17 @@ def create_new_protein_tab(tab_parent,uniprot_id):
     return listbox
 
 
+def create_table(root,lista,xx,yy):
+    container = Frame(root)
+    for i,lines in enumerate(lista):
+        for j,item in enumerate(lines):
+            Label(container,text=item).grid(row=i,column=j)
+
+    container.place(x=xx,y=yy)
+    return container
+
+# MAIN
+
 # create standar windown
 verbose = True
 window = Tk()
@@ -47,7 +58,7 @@ tab_parent.pack(expand=1,fill="both")
 
 # Load load_ensemble_data
 
-ensemble_data = load_ensemble_data()
+ensemble_data,protein_labels = load_ensemble_data()
 
 # Carga un dicionario con laa info para el listbox.
 
@@ -74,6 +85,8 @@ def click_select_btn():
 button_select =  Button(tab_selector,text="Seleccionar",command=click_select_btn)
 button_select.place (x=100,y=200)
 
+tabla_p = [[x,"N/A"] for x in protein_labels]
 
+protein = create_table(tab_selector,tabla_p,xx=220,yy=5)
 
 window.mainloop()

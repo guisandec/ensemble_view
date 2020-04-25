@@ -4,11 +4,17 @@ from functools import partial
 from pprint import pprint as pp
 
 
+
 def is_none(variable):
     if type(variable)==type(None):
         return True
     else:
         return False
+
+
+
+
+
 
 def create_scrolable_vertical(root,lista=[],xx=0,yy=0,ancho=200,alto=300):
     container = ttk.Frame(root)
