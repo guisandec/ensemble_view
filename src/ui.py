@@ -3,7 +3,7 @@ from tkinter import ttk
 from functools import partial
 from pprint import pprint as pp
 
-
+monospace = ("Courier New",10)
 
 def is_none(variable):
     if type(variable)==type(None):
@@ -48,7 +48,6 @@ def create_scrolable_aa_list(root,lista=[],xx=10,yy=10,ancho=5800,alto=200):
     canvas = Canvas(container,width=ancho,height=alto,bg="#aaaaff")
     scrollbar = ttk.Scrollbar(container, orient="horizontal", command=canvas.xview)
     scrollable_frame = ttk.Frame(canvas)
-
     scrollable_frame.bind(
         "<Configure>",
         lambda e: canvas.configure(
@@ -57,7 +56,6 @@ def create_scrolable_aa_list(root,lista=[],xx=10,yy=10,ancho=5800,alto=200):
     )
 
     canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-
     canvas.configure(yscrollcommand=scrollbar.set)
 
 
@@ -66,7 +64,7 @@ def create_scrolable_aa_list(root,lista=[],xx=10,yy=10,ancho=5800,alto=200):
         pass
 
     for index,items in enumerate(lista):
-        x = Button(scrollable_frame,text=items,padx=5,pady=3,font=('Liberatarion Mono',9),command=partial(click_aa,index))
+        x = Button(scrollable_frame,text=items,padx=5,pady=3,font=monospace,command=partial(click_aa,index))
         x.pack(side="left")
 
     #fija el cotainer en las cordenadas xx yy
@@ -86,7 +84,7 @@ def onselect(evt):
 
 def create_listbox(root,list = ["Example 1","Example2"],xx=0,yy=0,ancho=200,alto=300):
     container = ttk.Frame(root)
-    sample_listbox = Listbox(container,exportselection=0)
+    sample_listbox = Listbox(container,font=monospace,exportselection=0)
     listbox_dict = dict()
     for index,element in enumerate(list):
         #protein_dict[index] = [uniprot_id,ensemble_data[uniprot_id]["Sequence"]]

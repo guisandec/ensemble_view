@@ -6,8 +6,9 @@ from pprint import pprint as pp
 from ast import literal_eval
 
 # Estos son modulos desarollados por mi
-from load_ensemble_data import load_ensemble_data
-from ui import *
+from src.load_ensemble_data import load_ensemble_data
+from src.ui import *
+
 
 
 def d_print(string):
@@ -35,8 +36,7 @@ def create_table(root,lista,xx,yy):
     container = Frame(root)
     for i,lines in enumerate(lista):
         for j,item in enumerate(lines):
-            Label(container,text=item).grid(row=i,column=j)
-
+            Label(container,text=item,font=monospace).grid(row=i,column=j)
     container.place(x=xx,y=yy)
     return container
 
@@ -63,7 +63,6 @@ ensemble_data,protein_labels = load_ensemble_data()
 # Carga un dicionario con laa info para el listbox.
 
 protein_list = list(ensemble_data.keys())
-
 container1,scrollbar1,listbox1,listbox_dict1 = create_listbox(tab_selector,protein_list,xx=10,yy=10,ancho=200,alto=580)
 
 
@@ -87,6 +86,6 @@ button_select.place (x=100,y=200)
 
 tabla_p = [[x,"N/A"] for x in protein_labels]
 
-protein = create_table(tab_selector,tabla_p,xx=220,yy=5)
+protein_table = create_table(tab_selector,tabla_p,xx=220,yy=5)
 
 window.mainloop()
