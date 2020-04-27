@@ -7,11 +7,12 @@ Por el momento permite seleccionar una proteina de una lista y genera una nueva 
 
 ## Agregado
 - Ensemble data se carga desde "mini_list.tsv"
+- Protein tabs:
+-- Lista de estructuras
 
 ## Proximas Mejoras
 - Selector: mostrar informacion sobre la proteina antes de seleccionarla
-- Protein tabs: Lista de estructuras, Lista de homologoos, Arbol
-
-
-## Mayor bugs:
-- Protein tabs: tarda mucho en crear pestaña.
+- Protein tabs:
+-- Alinemiaento + Lista de homologos
+-- Arbol
+-- Mapeo de estructura a secuencia
