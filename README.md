@@ -12,7 +12,7 @@ Por el momento permite seleccionar una proteina de una lista y genera una nueva 
 
 ## Proximas Mejoras
 - Selector: mostrar informacion sobre la proteina antes de seleccionarla
-- Protein tabs:
--- Alinemiaento + Lista de homologos
--- Arbol
--- Mapeo de estructura a secuencia
+- Protein tabs:..
+-- Alinemiaento + Lista de homologos..
+-- Arbol..
+-- Mapeo de estructura a secuencia..
